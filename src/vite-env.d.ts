@@ -1,9 +1,9 @@
 /// <reference types="vite/client" />
 
 export type Session = {
-  username: string
-  userId: string
-  accessToken: string
+  username: string | null
+  userId: string | null
+  accessToken: string | null
 }
 
 export type RegisterCredentials = {
@@ -23,10 +23,24 @@ export type ApiResponseScheme<T> = {
   data?: T
 }
 
-export type ApiResponseErrorScheme<E = Error> = {
+export type ApiResponseErrorScheme = {
   success: boolean
   name?: string
   message?: string
   httpStatusCode?: number
-  error: E
+}
+
+export type PostReq = {
+  title: string,
+  content: string,
+  authorId: string
+}
+
+export type PostRes = {
+  id: string,
+  title: string,
+  content: string,
+  createdAt: string,
+  updatedAt: string,
+  author: string
 }

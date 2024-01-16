@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 
 export type InputFieldProps = {
-  value: string
+  value?: string|number|readonly string[]
   type: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   name: string
   id: string
   required: boolean
+  checked?: boolean
   placeholder?: string
   maxLength?: number
   minLength?: number
@@ -21,7 +22,7 @@ export default function InputField({
   required,
   placeholder,
   maxLength,
-  minLength
+  minLength,
 }: InputFieldProps) {
 
   const [message, setMessage] = useState('')
@@ -42,6 +43,7 @@ export default function InputField({
 
   return (
     <>
+
       <input 
         type={type} 
         value={value} 
@@ -51,7 +53,8 @@ export default function InputField({
         placeholder={placeholder} 
         maxLength={maxLength} 
         minLength={minLength}
-      ></input>
+        className="p-2 rounded-xl bg-slate-800 text-white outline-none border focus:shadow focus:shadow-slate-600 border-slate-600"
+      />
 
       {message.length>0 && <p className="error-message">{message}</p>}
     </>

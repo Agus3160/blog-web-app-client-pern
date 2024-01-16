@@ -1,19 +1,14 @@
 import { Link } from "react-router-dom";
 import useSessionContext from "../context/useSessionContext";
-import useQueryRefreshAccessToken from "../queries/useQueryRefreshToken";
 
 export default function NavBar() {
 
   const { session } = useSessionContext()
 
-  const { data: sessionData } = useQueryRefreshAccessToken()
-
-  console.log(sessionData)
-
   return (
-    <nav className="px-5 py-3 flex justify-between bg-darkBlue-100 text-white">
+    <nav className="px-5 py-3 flex justify-between bg-slate-800 text-white">
       <h1>Blog</h1>
-      <ul className="flex gap-3">
+      <ul className="flex gap-3 items-center">
         {session? 
         <>
           <li><Link to="/">Home</Link></li>

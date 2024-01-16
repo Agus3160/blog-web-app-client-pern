@@ -1,6 +1,6 @@
 import { useState } from "react"
 import useSignUpMutation from "../queries/useSignUpMutation"
-import Form from "../components/Form"
+import Form from "../components/customForm/Form"
 
 
 export default function SignUp() {
@@ -19,7 +19,7 @@ export default function SignUp() {
       value: credential.username,
       id: 'username',
       type: 'text',
-      placeholder: 'username',
+      placeholder: 'Create your username',
       minLength: 5,
       maxLength: 25,
       required: true
@@ -29,7 +29,7 @@ export default function SignUp() {
       value: credential.email,
       id: 'email',
       type: 'email',
-      placeholder: 'email',
+      placeholder: 'Create your email',
       required: true
     },
     {
@@ -37,7 +37,7 @@ export default function SignUp() {
       value: credential.password,
       id: 'password',
       type: 'password',
-      placeholder: 'password',
+      placeholder: 'Create your password',
       minLength: 8,
       required: true
     }
@@ -48,8 +48,7 @@ export default function SignUp() {
   }
 
   return (
-    <div>
-      <h1>SignUp</h1>
+    <div className="h-full flex flex-col items-center justify-center">
       <Form 
         formData={credential}
         setFormData={setCredentials}
@@ -57,6 +56,7 @@ export default function SignUp() {
         fields={fields}
         sendButtonText="Sign Up"
         isLoading={isLoading}
+        title="Sign Up"
       />
       {error && <p className="error-message">{error.message}</p>}
     </div>
