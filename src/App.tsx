@@ -9,6 +9,8 @@ import NotFound from "./pages/NotFound"
 import Home from "./pages/Home"
 import CreatePost from "./pages/CreatePost"
 import Profile from "./pages/Profile"
+import PostView from "./pages/PostView"
+import EditPost from "./pages/EditPost"
 
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
+        retryOnMount: false,
         retryDelay: 1000
       }
     }
@@ -36,10 +39,20 @@ function App() {
 
           <Route element={<PersistLogin />}>
             <Route element={<ProtectedRoutes />}>
+              
               <Route path="/" element={<Home />} ></Route>  
-              <Route path="/upload" element={<CreatePost />}></Route>
-              <Route path="/profile/:username" element={<Profile />}></Route>
-              <Route path="/profile/edit" element={<h1>ola</h1>}></Route>
+              <Route path="upload" element={<CreatePost />}></Route>
+              
+              <Route path="profile/">
+                <Route path="edit" element={<h1>ola</h1>}></Route>
+                <Route path=":username" element={<Profile />}></Route>
+              </Route>
+
+              <Route path="posts/">
+                <Route path=":id/" element={<PostView />}></Route>
+                <Route path="edit/:id" element={<EditPost />}></Route>
+              </Route>
+              
             </Route>
           </Route>
           

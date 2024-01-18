@@ -36,6 +36,11 @@ export type PostReq = {
   authorId: string
 }
 
+export type PostPutReq = {
+  title: string,
+  content: string
+}
+
 export type PostRes = {
   id: string,
   title: string,

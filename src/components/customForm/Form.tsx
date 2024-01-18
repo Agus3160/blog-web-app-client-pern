@@ -21,7 +21,6 @@ export default function Form<T>({formData, setFormData, onSubmitFn, fields, send
       ...formData,
       [name]: value
     })
-    console.log(formData)
   }
 
   return (

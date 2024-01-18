@@ -5,10 +5,11 @@ import ToolBar from "./ToolBar"
 
 type Props = {
   placeholder?: string
+  content?: string
   onChange: (content: string) => void
 }
 
-export default function TipTap({placeholder, onChange}: Props) {
+export default function TipTap({placeholder, onChange, content=''}: Props) {
   
   const editor = useEditor({
     extensions: [
@@ -17,7 +18,7 @@ export default function TipTap({placeholder, onChange}: Props) {
         placeholder: placeholder,
       })
     ],
-    content: '',
+    content: content,
     editorProps: {
       
       attributes: {

@@ -32,9 +32,9 @@ export default function InputField({
     let errorMessage = ''
     if (required && inputValue.trim() === '') {
       errorMessage = 'This field is required'
-    } else if (minLength && inputValue.length < minLength) {
+    } else if (minLength && inputValue.length < minLength && inputValue.length > 0) {
       errorMessage = `Min length is ${minLength} chars`
-    } else if (maxLength && inputValue.length > maxLength) {
+    } else if (maxLength && inputValue.length > maxLength && inputValue.length > 0) {
       errorMessage = `Max length is ${maxLength} chars`
     } 
     setMessage(errorMessage)
@@ -42,7 +42,7 @@ export default function InputField({
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-2">
 
       <input 
         type={type} 
@@ -57,6 +57,6 @@ export default function InputField({
       />
 
       {message.length>0 && <p className="error-message">{message}</p>}
-    </>
+    </div>
   )
 }

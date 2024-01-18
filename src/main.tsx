@@ -5,9 +5,9 @@ import './index.css'
 import SessionProvider from './context/SessionContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-      <BrowserRouter>
-        <SessionProvider>
-          <App />
-        </SessionProvider>
-      </BrowserRouter>
+  <BrowserRouter>
+    <SessionProvider>
+      <App />
+    </SessionProvider>
+  </BrowserRouter>
 )
