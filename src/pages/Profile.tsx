@@ -4,18 +4,29 @@ import { Settings, LogOut } from "lucide-react"
 import useLogOutMutation from "../queries/useLogOutMutation"
 import useGetPostsByUsernameQuery from "../queries/useGetPostsByUsernameQuery"
 import PostList from "../components/post/PostList"
+import useGetUserDataQuery from "../queries/useGetUserDataQuery"
+import { useEffect } from "react"
 
 export default function Profile() {
 
   const { session } = useSessionContext()
-  
   const { username } = useParams()
 
   const { mutateAsync: logOut } = useLogOutMutation()
 
-  const {data: posts, isError} = useGetPostsByUsernameQuery(username!)
+  const { data:userData , isLoading, isError, refetch } = useGetUserDataQuery(username!)
+  const { data: posts } = useGetPostsByUsernameQuery(userData?.username)
 
-  if(isError || !posts) return <div>Error</div>
+  const isYourProfile = session?.username === username
+
+  useEffect(() => {
+    const refetchOnChange = async () => await refetch()
+    refetchOnChange()
+  }, [refetch, username])
+
+  if (isLoading) return <div>Loading...</div>
+
+  if(isError || !posts || !userData) return <div>Error</div>
 
   return (
     <div className="h-full flex flex-col items-center gap-5 ">
@@ -26,8 +37,10 @@ export default function Profile() {
           src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
           className="w-10 h-10 rounded-full"
         ></img>
-        <h2>{session?.username}</h2>
+        <h2>{username}</h2>
       </div>
+      {
+        isYourProfile &&
       <div className="flex flex-col gap-2 justify-around  ">
         <button 
           onClick={async() => await logOut()}
@@ -44,6 +57,7 @@ export default function Profile() {
           </div>
         </Link>
       </div>
+      }
     </div>
 
     <PostList posts={posts} />

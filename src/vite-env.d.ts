@@ -49,3 +49,8 @@ export type PostRes = {
   updatedAt: string,
   author: string
 }
+
+export type UserData = {
+  username: string
+  email: string
+}

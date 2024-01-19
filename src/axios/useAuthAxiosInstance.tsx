@@ -3,6 +3,7 @@ import useSessionContext from "../context/useSessionContext"
 import { axiosPrivateInstance } from "./axiosBase"
 import useRefreshTokenMutation from "../queries/useRefreshTokenMutation"
 import { AxiosError } from "axios"
+import { ApiResponseErrorScheme } from "../vite-env"
 
 export default function useAuthAxiosInstance() {
   const { session } = useSessionContext()
@@ -21,14 +22,15 @@ export default function useAuthAxiosInstance() {
 
     const resInterceptor = axiosPrivateInstance.interceptors.response.use(
       (response) => response,
-      async (error:AxiosError) => {
+      async (error:AxiosError<ApiResponseErrorScheme>) => {
         const errorResponse = error.response
+        const errorData = errorResponse?.data
         const status = errorResponse?.status
         const config = error.config
 
         if(!config) return Promise.reject(error)
 
-        if(status === 403) { 
+        if(status === 403 && errorData?.name === "TokenExpiredError") { 
           const res = await refreshAccessToken()
           const newAccessToken = res?.data?.accessToken
           const newConfig = {

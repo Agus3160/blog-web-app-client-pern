@@ -27,7 +27,6 @@ export default function TipTap({placeholder, onChange, content=''}: Props) {
     },
     onUpdate ({ editor }) {
       onChange(editor.getHTML())
-      console.log(editor.getHTML())
     }
   })
 

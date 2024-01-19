@@ -11,6 +11,7 @@ import CreatePost from "./pages/CreatePost"
 import Profile from "./pages/Profile"
 import PostView from "./pages/PostView"
 import EditPost from "./pages/EditPost"
+import EditProfile from "./pages/EditProfile"
 
 
 function App() {
@@ -44,7 +45,7 @@ function App() {
               <Route path="upload" element={<CreatePost />}></Route>
               
               <Route path="profile/">
-                <Route path="edit" element={<h1>ola</h1>}></Route>
+                <Route path="edit" element={<EditProfile />}></Route>
                 <Route path=":username" element={<Profile />}></Route>
               </Route>
 

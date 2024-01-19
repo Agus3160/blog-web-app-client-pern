@@ -11,7 +11,8 @@ const useEditPostMutation = (id: string) => {
   return useMutation<ApiResponseScheme<null>, AxiosError<ApiResponseErrorScheme>, {title: string, content: string}>(
     {
       mutationFn: editPost,
-      onSuccess: async () => await queryClient.invalidateQueries('posts'),
+      onSuccess: async () => await queryClient.invalidateQueries(['post', id]),
+      retry: false
     }
   )
 
