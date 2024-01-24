@@ -1,6 +1,6 @@
 import { useMutation } from "react-query"
-import useDeleteUser from "../hooks/useDeleteUser"
-import useLogOutMutation from "./useLogOutMutation"
+import useDeleteUser from "../../hooks/user/useDeleteUser"
+import useLogOutMutation from "../auth/useLogOutMutation"
 
 const useDeleteUserMutation = () => {
 

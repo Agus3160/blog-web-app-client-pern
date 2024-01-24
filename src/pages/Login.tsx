@@ -1,30 +1,24 @@
 import { useState } from "react"
-import useLoginMutation from "../queries/useLoginMutation"
+import useLoginMutation from "../queries/auth/useLoginMutation"
 import Form from "../components/customForm/Form"
-import useSessionContext from "../context/useSessionContext"
-import { useNavigate, useLocation } from "react-router-dom"
 import useLocalStorage from "../hooks/useLocalStorage"
 
 export default function Login() {
 
-  const {setSession} = useSessionContext()
-  const navigate = useNavigate()
-  const location = useLocation()
-  const from = location.state?.from?.pathname || '/'
-  const [credential, setCredentials] = useState({
+  const [loginData, setLoginData] = useState({
     username: '',
     password: '',
-    remember: false
+    persistLogin: false
   })
 
-  const { mutateAsync: login, error, isLoading } = useLoginMutation()
+  const { mutateAsync: login, isLoading } = useLoginMutation()
   const { setValue } = useLocalStorage('persistLogin')
 
   const fields = [
     {
       name: 'username',
-      value: credential.username,
       id: 'username',
+      value: loginData.username,
       type: 'text',
       placeholder: 'Enter your username',
       minLength: 5,
@@ -33,8 +27,8 @@ export default function Login() {
     },
     {
       name: 'password',
-      value: credential.password,
       id: 'password',
+      value: loginData.password,
       type: 'password',
       placeholder: 'Enter your password',
       minLength: 8,
@@ -42,20 +36,14 @@ export default function Login() {
     }
   ]
 
-  const handleLogin = async () => {
-    const res = await login(credential)
-    if(res.data === undefined) return
-    setSession(res.data)
-    setValue(credential.remember)
-    navigate(from, {replace: true})
-  }
+
 
   return (
     <div className="h-full flex flex-col items-center justify-center">
-      <Form 
-        formData={credential}
-        setFormData={setCredentials}
-        onSubmitFn={handleLogin}
+      <Form
+        formData={loginData}
+        setFormData={setLoginData}
+        onSubmitFn={login}
         fields={fields}
         sendButtonText="Login"
         isLoading={isLoading}
@@ -66,13 +54,15 @@ export default function Login() {
             type="checkbox"
             name="remember"
             id="remember"
-            checked={credential.remember}
-            onChange={() => setCredentials({...credential, remember: !credential.remember})}
+            checked={loginData.persistLogin}
+            onChange={() => {
+              setValue(!loginData.persistLogin)
+              setLoginData({...loginData, persistLogin:!loginData.persistLogin})
+            }}
           />
           <label htmlFor="remember">Remember me</label>
         </div>
       </Form>
-      {error && <p className="error-message">{error.message}</p>}
     </div>
   )
 }

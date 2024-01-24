@@ -1,5 +1,5 @@
-import useAuthAxiosInstance from "../axios/useAuthAxiosInstance"
-import { ApiResponseScheme, PostRes } from "../vite-env"
+import useAuthAxiosInstance from "../../axios/useAuthAxiosInstance"
+import { ApiResponseScheme, PostRes } from "../../vite-env"
 
 export default function useGetPosts() {
   

@@ -53,7 +53,10 @@ export default function InputField({
         placeholder={placeholder} 
         maxLength={maxLength} 
         minLength={minLength}
-        className="p-2 rounded-xl bg-slate-800 text-white outline-none border focus:shadow focus:shadow-slate-600 border-slate-600"
+        className={
+          (message? 'focus:border-red-600' : 'focus:border-blue-600')
+          + " focus:shadow p-2 rounded-xl bg-slate-800 text-white outline-none border border-slate-600 "
+        }
       />
 
       {message.length>0 && <p className="error-message">{message}</p>}

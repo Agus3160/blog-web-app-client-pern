@@ -22,7 +22,7 @@ export default function TipTap({placeholder, onChange, content=''}: Props) {
     editorProps: {
       
       attributes: {
-        class: 'p-2 sm:min-h-1/2 h-64 overflow-y-auto rounded-xl bg-slate-800 text-white outline-none border focus:shadow focus:shadow-slate-600 border-slate-600'
+        class: 'p-2 h-72 overflow-y-auto rounded-xl bg-slate-800 text-white outline-none border focus:border-blue-600 border-slate-600'
       }
     },
     onUpdate ({ editor }) {

@@ -1,5 +1,5 @@
-import useAuthAxiosInstance from "../axios/useAuthAxiosInstance"
-import { ApiResponseScheme } from "../vite-env"
+import useAuthAxiosInstance from "../../axios/useAuthAxiosInstance"
+import { ApiResponseScheme } from "../../vite-env"
 
 const useDeleteUser = () => {
 

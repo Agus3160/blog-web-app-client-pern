@@ -1,6 +1,6 @@
-import useAuthAxiosInstance from "../axios/useAuthAxiosInstance"
-import useSessionContext from "../context/useSessionContext"
-import { ApiResponseScheme, PostReq } from "../vite-env"
+import useAuthAxiosInstance from "../../axios/useAuthAxiosInstance"
+import useSessionContext from "../../context/useSessionContext"
+import { ApiResponseScheme, PostReq } from "../../vite-env"
 
 export default function useUploadPost() {
   

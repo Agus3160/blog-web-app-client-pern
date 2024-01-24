@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { PostReq } from "../../vite-env"
 import useSessionContext from "../../context/useSessionContext"
-import useDeletePostByIdMutation from "../../queries/useDeletePostByIdMutation"
+import useDeletePostByIdMutation from "../../queries/posts/useDeletePostByIdMutation"
 
 type Props = {
   id: string

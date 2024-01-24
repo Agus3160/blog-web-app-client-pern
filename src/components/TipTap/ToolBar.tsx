@@ -7,7 +7,7 @@ type Props = {
 
 export default function ToolBar({ editor }: Props) {
   return (
-    <div className="flex items-center justify-around mb-4">
+    <div className="flex items-center justify-around mb-4 overlow-x-auto">
       <button
         type="button"
         onClick={() => editor.chain().focus().setParagraph().run()}

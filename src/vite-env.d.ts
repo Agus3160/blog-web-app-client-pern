@@ -17,16 +17,16 @@ export type LoginCredentials = {
   password: string
 }
 
-export type ApiResponseScheme<T> = {
+export type ApiResponseScheme<T=undefined> = {
   success: boolean
-  message?: string
-  data?: T
+  message: string
+  data?: T?
 }
 
 export type ApiResponseErrorScheme = {
   success: boolean
-  name?: string
-  message?: string
+  message: string
+  name: string
   httpStatusCode?: number
 }
 

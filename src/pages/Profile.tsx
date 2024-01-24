@@ -1,11 +1,14 @@
 import { Link, useParams } from "react-router-dom"
 import useSessionContext from "../context/useSessionContext"
 import { Settings, LogOut } from "lucide-react"
-import useLogOutMutation from "../queries/useLogOutMutation"
-import useGetPostsByUsernameQuery from "../queries/useGetPostsByUsernameQuery"
+import useLogOutMutation from "../queries/auth/useLogOutMutation"
+import useGetPostsByUsernameQuery from "../queries/posts/useGetPostsByUsernameQuery"
 import PostList from "../components/post/PostList"
-import useGetUserDataQuery from "../queries/useGetUserDataQuery"
+import useGetUserDataQuery from "../queries/user/useGetUserDataQuery"
 import { useEffect } from "react"
+import LoadingPage from "./LoadingPage"
+import ErrorPage from "./ErrorPage"
+import PostSkeleton from "../components/PostSkeleton"
 
 export default function Profile() {
 
@@ -14,8 +17,8 @@ export default function Profile() {
 
   const { mutateAsync: logOut } = useLogOutMutation()
 
-  const { data:userData , isLoading, isError, refetch } = useGetUserDataQuery(username!)
-  const { data: posts } = useGetPostsByUsernameQuery(userData?.username)
+  const { data:userData , isLoading, isError, refetch, error:userDataError } = useGetUserDataQuery(username!)
+  const { data: posts, isError:isPostError, error:postError, isLoading:isLoadingPosts } = useGetPostsByUsernameQuery(userData?.username)
 
   const isYourProfile = session?.username === username
 
@@ -24,9 +27,10 @@ export default function Profile() {
     refetchOnChange()
   }, [refetch, username])
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading ) return <LoadingPage />
 
-  if(isError || !posts || !userData) return <div>Error</div>
+  if (isError && userDataError) return <ErrorPage error={userDataError} />
+  if (isPostError && postError) return <ErrorPage error={postError} />
 
   return (
     <div className="h-full flex flex-col items-center gap-5 ">
@@ -60,6 +64,9 @@ export default function Profile() {
       }
     </div>
 
+    {
+      isLoadingPosts && <PostSkeleton quantity={5} />
+    }
     <PostList posts={posts} />
 
     </div>

@@ -1,6 +1,6 @@
 import { useMutation } from "react-query"
-import signUp from "../libs/signUp"
-import { ApiResponseErrorScheme, ApiResponseScheme, RegisterCredentials } from "../vite-env"
+import signUp from "../../libs/signUp"
+import { ApiResponseErrorScheme, ApiResponseScheme, RegisterCredentials } from "../../vite-env"
 import { AxiosError } from "axios"
 
 

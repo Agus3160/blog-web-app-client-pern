@@ -5,14 +5,15 @@ import { QueryClientProvider, QueryClient } from 'react-query'
 import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import PersistLogin from "./components/customRoutes/PersistLogin"
-import NotFound from "./pages/NotFound"
+import ErrorPage from "./pages/ErrorPage"
 import Home from "./pages/Home"
 import CreatePost from "./pages/CreatePost"
 import Profile from "./pages/Profile"
 import PostView from "./pages/PostView"
 import EditPost from "./pages/EditPost"
 import EditProfile from "./pages/EditProfile"
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -21,17 +22,18 @@ function App() {
       queries: {
         refetchOnWindowFocus: false,
         retryOnMount: false,
-        retryDelay: 1000
+        retryDelay: 1000,
       }
     }
   })
 
   return (
-    <div className="h-screen flex flex-col " >
+    <>
+    <div className="h-svh flex flex-col overflow-y-auto" >
     <QueryClientProvider client={queryClient}>
-      
+      <ToastContainer position="top-right" />
       <NavBar />
-      <div className="h-full w-full overflow-y-auto my-3">
+      <div className="flex-1 my-5">
       <Routes>
       
         <Route path="/">
@@ -39,6 +41,7 @@ function App() {
           <Route path="login" element={<Login />}></Route>
 
           <Route element={<PersistLogin />}>
+            
             <Route element={<ProtectedRoutes />}>
               
               <Route path="/" element={<Home />} ></Route>  
@@ -55,16 +58,16 @@ function App() {
               </Route>
               
             </Route>
-          </Route>
           
-        </Route>
+            <Route path="*" element={<ErrorPage httpStatus={404} message="Page not found" />}></Route>
 
-        <Route path="*" element={<NotFound />}></Route>
-        
+          </Route>
+        </Route>        
       </Routes> 
       </div>
     </QueryClientProvider>
     </div>
+    </>
   )
 }
 

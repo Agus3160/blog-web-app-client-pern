@@ -1,11 +1,14 @@
 import InputField, { InputFieldProps } from "./InputField"
+import { ApiResponseScheme } from "../../vite-env"
+import useStateToasterHandler from "../../hooks/useStateToasterHandler"
+import { Loader2 } from "lucide-react"
 
 type listFields = Omit<InputFieldProps, 'onChange'>[]
 
-type Props<T>= {
-  onSubmitFn: () => Promise<void>
-  formData: T
-  setFormData: (data: T) => void
+type Props<T,D>= {
+  onSubmitFn: (d:T) => Promise<ApiResponseScheme<D>>
+  formData : T
+  setFormData : React.Dispatch<React.SetStateAction<T>>
   sendButtonText: string
   fields: listFields
   title?: string
@@ -13,13 +16,24 @@ type Props<T>= {
   children?: React.ReactNode
 }
 
-export default function Form<T>({formData, setFormData, onSubmitFn, fields, sendButtonText, isLoading, title, children}: Props<T>) {
+export default function Form<T,D>({
+  formData,
+  setFormData,
+  onSubmitFn, 
+  fields, 
+  sendButtonText, 
+  isLoading, 
+  title, 
+  children, 
+}: Props<T,D>) {
+
+  const { errorHandler, successHandler } = useStateToasterHandler()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     })
   }
 
@@ -28,7 +42,12 @@ export default function Form<T>({formData, setFormData, onSubmitFn, fields, send
       className="flex flex-col p-5 gap-5 rounded-xl bg-slate-800 sm:w-1/2 w-11/12"
       onSubmit={async (e) => {
         e.preventDefault()
-        await onSubmitFn()
+        try{
+          const res = await onSubmitFn(formData)
+          successHandler(res)
+        }catch(err){
+          errorHandler(err)  
+        }
       }}
     >
       {title && <h2 className="text-white text-center">{title}</h2>}
@@ -51,7 +70,13 @@ export default function Form<T>({formData, setFormData, onSubmitFn, fields, send
         className="bg-slate-600 p-2 rounded-xl text-white hover:bg-slate-700 disabled:bg-slate-500" 
         type="submit" 
         disabled={isLoading}
-      >{sendButtonText}
+      >
+        <div className="flex items-center justify-center gap-2">
+          {isLoading && <Loader2 
+            className="animate-spin"
+          />}
+          {sendButtonText}
+        </div>
       </button>
     </form>
   )

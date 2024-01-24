@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import useSessionContext from "../context/useSessionContext"
 import { axiosPrivateInstance } from "./axiosBase"
-import useRefreshTokenMutation from "../queries/useRefreshTokenMutation"
+import useRefreshTokenMutation from "../queries/auth/useRefreshTokenMutation"
 import { AxiosError } from "axios"
 import { ApiResponseErrorScheme } from "../vite-env"
 
@@ -21,7 +21,9 @@ export default function useAuthAxiosInstance() {
     )
 
     const resInterceptor = axiosPrivateInstance.interceptors.response.use(
-      (response) => response,
+      (response) => {
+        return response
+      },
       async (error:AxiosError<ApiResponseErrorScheme>) => {
         const errorResponse = error.response
         const errorData = errorResponse?.data

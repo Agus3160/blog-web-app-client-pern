@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import useGetPostsByUsername from "../hooks/useGetPostsByUsername"
+import useGetPostsByUsername from "../../hooks/posts/useGetPostsByUsername"
 
 const useGetPostsByUsernameQuery = (username: string|undefined) => {
   

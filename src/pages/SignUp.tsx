@@ -1,23 +1,22 @@
-import { useState } from "react"
-import useSignUpMutation from "../queries/useSignUpMutation"
+import useSignUpMutation from "../queries/auth/useSignUpMutation"
 import Form from "../components/customForm/Form"
-
+import { useState } from "react"
 
 export default function SignUp() {
 
-  const [credential, setCredentials] = useState({
+  const {mutateAsync: signUp, isLoading } = useSignUpMutation()
+
+  const [signUpData, setSignUpData] = useState({
     username: '',
     email: '',
     password: ''
   })
 
-  const {mutateAsync: signUp, error, isLoading } = useSignUpMutation()
-
   const fields = [
     {
       name: 'username',
-      value: credential.username,
       id: 'username',
+      value: signUpData.username,
       type: 'text',
       placeholder: 'Create your username',
       minLength: 5,
@@ -26,15 +25,15 @@ export default function SignUp() {
     },
     {
       name: 'email',
-      value: credential.email,
+      value: signUpData.email,
       id: 'email',
       type: 'email',
-      placeholder: 'Create your email',
+      placeholder: 'Write your email',
       required: true
     },
     {
       name: 'password',
-      value: credential.password,
+      value: signUpData.password,
       id: 'password',
       type: 'password',
       placeholder: 'Create your password',
@@ -43,22 +42,17 @@ export default function SignUp() {
     }
   ]
 
-  const handleSignUp = async () => {
-    await signUp(credential)
-  }
-
   return (
     <div className="h-full flex flex-col items-center justify-center">
-      <Form 
-        formData={credential}
-        setFormData={setCredentials}
-        onSubmitFn={handleSignUp}
+      <Form
+        formData={signUpData}
+        setFormData={setSignUpData}
+        onSubmitFn={signUp}
         fields={fields}
         sendButtonText="Sign Up"
         isLoading={isLoading}
         title="Sign Up"
       />
-      {error && <p className="error-message">{error.message}</p>}
     </div>
   )
 }

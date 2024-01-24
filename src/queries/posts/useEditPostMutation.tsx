@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "react-query"
-import useEditPost from "../hooks/useEditPost"
-import { ApiResponseErrorScheme, ApiResponseScheme } from "../vite-env"
+import useEditPost from "../../hooks/posts/useEditPost"
+import { ApiResponseErrorScheme, ApiResponseScheme } from "../../vite-env"
 import { AxiosError } from "axios"
 
 const useEditPostMutation = (id: string) => {

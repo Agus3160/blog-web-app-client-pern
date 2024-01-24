@@ -1,5 +1,5 @@
-import useDeleteUserMutation from "../queries/useDeleteUserMutation"
-import useGetUserDataQuery from "../queries/useGetUserDataQuery"
+import useDeleteUserMutation from "../queries/user/useDeleteUserMutation"
+import useGetUserDataQuery from "../queries/user/useGetUserDataQuery"
 import useSessionContext from "../context/useSessionContext"
 
 export default function EditProfile() {

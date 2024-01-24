@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import useGetPosts from "../hooks/useGetPosts"
+import useGetPosts from "../../hooks/posts/useGetPosts"
 
 const useGetPostsQuery = () => {
   const getPosts = useGetPosts()

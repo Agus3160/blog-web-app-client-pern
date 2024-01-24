@@ -1,7 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom";
 import useSessionContext from "../../context/useSessionContext";
 import { useLocation } from "react-router-dom"
-import useLogOutMutation from "../../queries/useLogOutMutation";
+import useLogOutMutation from "../../queries/auth/useLogOutMutation";
 import { useEffect } from "react";
 
 export default function ProtectedRoutes() {

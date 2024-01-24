@@ -1,8 +1,8 @@
 import { useMutation } from "react-query"
-import useSessionContext from "../context/useSessionContext"
+import useSessionContext from "../../context/useSessionContext"
 import { useNavigate } from "react-router-dom"
-import logOut from "../libs/logOut"
-import useLocalStorage from "../hooks/useLocalStorage"
+import logOut from "../../libs/logOut"
+import useLocalStorage from "../../hooks/useLocalStorage"
 
 const useLogOutMutation = () => {
   

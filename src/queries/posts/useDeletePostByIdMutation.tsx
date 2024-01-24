@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query";
-import useDeletePostById from "../hooks/useDeletePostById";
+import useDeletePostById from "../../hooks/posts/useDeletePostById";
 
 const useDeletePostByIdMutation = (id: string) => {
 
