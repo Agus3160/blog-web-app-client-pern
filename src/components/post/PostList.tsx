@@ -7,9 +7,17 @@ type Props = {
 
 export default function PostList({posts=[]}: Props) {
   return (
-    <div className="w-11/12 sm:w-1/2 flex flex-col gap-4 mx-auto">
+    <div className="w-[300px] sm:w-[600px] grid grid-cols-1 content-center sm:grid-cols-2 gap-4 mx-auto ">
       {(posts || []).map((post) => (
-        <Post key={post.id} id={post.id} createdDate={post.createdAt} title={post.title} content={post.content} author={post.author} />
+        <Post
+          key={post.id} 
+          id={post.id} 
+          createdDate={post.createdAt} 
+          title={post.title} 
+          content={post.content} 
+          author={post.author} 
+          imageUrl={post.imageUrl} 
+        />
       ))}
     </div>
   )

@@ -8,12 +8,12 @@ export default function NavBar() {
   return (
     <nav className="px-5 py-3 flex justify-between bg-slate-800 text-white">
       <h1>Blog</h1>
-      <ul className="flex gap-3 items-center">
+      <ul className="flex gap-3 items-center list-none">
         {session? 
         <>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/upload">Upload</Link></li>
-          <li><Link to={`/profile/${session.username}`}>{session.username}</Link></li>
+          <li><Link to={`/profile/${session.username}`}>Profile</Link></li>
         </>
         :
         <>

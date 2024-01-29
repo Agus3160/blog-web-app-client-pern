@@ -5,10 +5,10 @@ import { Loader2 } from "lucide-react"
 
 type listFields = Omit<InputFieldProps, 'onChange'>[]
 
-type Props<T,D>= {
-  onSubmitFn: (d:T) => Promise<ApiResponseScheme<D>>
-  formData : T
-  setFormData : React.Dispatch<React.SetStateAction<T>>
+type Props<T, D> = {
+  onSubmitFn: (d: T) => Promise<ApiResponseScheme<D>>
+  formData: T
+  setFormData: React.Dispatch<React.SetStateAction<T>>
   sendButtonText: string
   fields: listFields
   title?: string
@@ -16,16 +16,16 @@ type Props<T,D>= {
   children?: React.ReactNode
 }
 
-export default function Form<T,D>({
+export default function Form<T, D>({
   formData,
   setFormData,
-  onSubmitFn, 
-  fields, 
-  sendButtonText, 
-  isLoading, 
-  title, 
-  children, 
-}: Props<T,D>) {
+  onSubmitFn,
+  fields,
+  sendButtonText,
+  isLoading,
+  title,
+  children,
+}: Props<T, D>) {
 
   const { errorHandler, successHandler } = useStateToasterHandler()
 
@@ -42,11 +42,11 @@ export default function Form<T,D>({
       className="flex flex-col p-5 gap-5 rounded-xl bg-slate-800 sm:w-1/2 w-11/12"
       onSubmit={async (e) => {
         e.preventDefault()
-        try{
+        try {
           const res = await onSubmitFn(formData)
           successHandler(res)
-        }catch(err){
-          errorHandler(err)  
+        } catch (err) {
+          errorHandler(err)
         }
       }}
     >
@@ -54,11 +54,13 @@ export default function Form<T,D>({
       {fields.map((field, index) => {
         return <InputField
           key={index}
+          autoComplete={field.autoComplete}
           value={field.value}
           type={field.type}
           onChange={handleChange}
           name={field.name}
           id={field.id}
+          dontAllowWhiteSpaces={field.dontAllowWhiteSpaces}
           required={field.required}
           placeholder={field.placeholder}
           maxLength={field.maxLength}
@@ -66,13 +68,13 @@ export default function Form<T,D>({
         />
       })}
       {children}
-      <button 
-        className="bg-slate-600 p-2 rounded-xl text-white hover:bg-slate-700 disabled:bg-slate-500" 
-        type="submit" 
+      <button
+        className="bg-slate-600 p-2 rounded-xl text-white hover:bg-slate-700 disabled:bg-slate-500"
+        type="submit"
         disabled={isLoading}
       >
         <div className="flex items-center justify-center gap-2">
-          {isLoading && <Loader2 
+          {isLoading && <Loader2
             className="animate-spin"
           />}
           {sendButtonText}

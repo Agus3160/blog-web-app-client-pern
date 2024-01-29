@@ -19,6 +19,7 @@ export default function Login() {
       name: 'username',
       id: 'username',
       value: loginData.username,
+      autoComplete: 'off',
       type: 'text',
       placeholder: 'Enter your username',
       minLength: 5,
@@ -40,6 +41,7 @@ export default function Login() {
 
   return (
     <div className="h-full flex flex-col items-center justify-center">
+
       <Form
         formData={loginData}
         setFormData={setLoginData}

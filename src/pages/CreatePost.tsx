@@ -2,12 +2,14 @@ import { useState } from "react"
 import Form from "../components/customForm/Form"
 import TipTap from "../components/TipTap/TipTap"
 import useUploadPostMutation from "../queries/posts/useUploadPostMutation"
+import UploadImage from "../components/UploadImage"
 
 export default function CreatePost() {
   
   const [postData, setPostData] = useState({
     title: '',
     content: '',
+    image: ''
   })
 
   const {mutateAsync: uploadPost, isLoading} = useUploadPostMutation()
@@ -24,6 +26,7 @@ export default function CreatePost() {
         title="Create Post"
       >
         <TipTap placeholder="Enter the content of the post" onChange={(content) => setPostData({...postData, content})} />
+        <UploadImage setImage={(image) => setPostData({...postData, image})} message="Upload an image" />
       </Form>
     </div>
   )

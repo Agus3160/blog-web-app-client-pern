@@ -36,14 +36,25 @@ h2{
 }
 
 .tiptap ul{
-  @apply ml-8;
+  @apply ml-4;
   @apply list-disc;
 }
 
 .tiptap ol{
-  @apply ml-8;
+  @apply ml-4;
   @apply list-decimal;  
 }
+
+ol {
+  @apply ml-8;
+  @apply list-decimal; 
+}
+
+ul {
+  @apply ml-8;
+  @apply list-disc; 
+}
+
 
 .tiptap p.is-editor-empty:first-child::before {
   @apply text-slate-400;

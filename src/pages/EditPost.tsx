@@ -6,6 +6,7 @@ import TipTap from "../components/TipTap/TipTap"
 import { useParams } from "react-router-dom"
 import useGetPostByIdQuery from "../queries/posts/useGetPostByIdQuery"
 import useEditPostMutation from "../queries/posts/useEditPostMutation"
+import UploadImage from "../components/UploadImage"
 
 export default function EditPost() {
 
@@ -16,6 +17,8 @@ export default function EditPost() {
   const [postData, setPostData] = useState({
     title: '',
     content: '',
+    newImage: '',
+    oldImageUrl: ''
   })
 
   const { data: res, isLoading, isError } = useGetPostByIdQuery(id as string)
@@ -23,9 +26,9 @@ export default function EditPost() {
 
   useEffect(() => {
     if(res?.data) {
-      const {title, content, author} = res.data
+      const {title, content, author, imageUrl} = res.data
       if(author !== session?.username) navigate('/', {replace:true})
-      setPostData({title:title, content: content})
+      setPostData({newImage:'', title:title, content: content, oldImageUrl: imageUrl})
     }
   }, [res, session, navigate, id])
 
@@ -45,6 +48,7 @@ export default function EditPost() {
         title="Create Post"
       >
         <TipTap content={res.data?.content} placeholder="Enter the content of the post" onChange={(content) => setPostData({...postData, content})} />
+        <UploadImage advice="To change the image of the post, upload a new one" setImage={(newImage) => setPostData({...postData, newImage})} message="Upload an image" />
       </Form>
     </div>
   )

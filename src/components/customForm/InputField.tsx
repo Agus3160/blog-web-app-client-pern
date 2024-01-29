@@ -11,6 +11,8 @@ export type InputFieldProps = {
   placeholder?: string
   maxLength?: number
   minLength?: number
+  dontAllowWhiteSpaces?: boolean
+  autoComplete?: string
 }
 
 export default function InputField({
@@ -23,6 +25,8 @@ export default function InputField({
   placeholder,
   maxLength,
   minLength,
+  dontAllowWhiteSpaces,
+  autoComplete
 }: InputFieldProps) {
 
   const [message, setMessage] = useState('')
@@ -36,7 +40,10 @@ export default function InputField({
       errorMessage = `Min length is ${minLength} chars`
     } else if (maxLength && inputValue.length > maxLength && inputValue.length > 0) {
       errorMessage = `Max length is ${maxLength} chars`
-    } 
+    } else if(dontAllowWhiteSpaces && inputValue.includes(' ')){
+      console.log('Spaces are not allowed')
+      errorMessage = 'Spaces are not allowed'
+    }
     setMessage(errorMessage)
     onChange(event)
   }
@@ -44,7 +51,8 @@ export default function InputField({
   return (
     <div className="flex flex-col gap-2">
 
-      <input 
+      <input
+        autoComplete={autoComplete}
         type={type} 
         value={value} 
         onChange={handleValidation} 
