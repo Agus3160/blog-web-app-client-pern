@@ -32,14 +32,14 @@ To set up the PERN Stack Blog locally, follow the step-by-step guide below.
 2. Navigate to the project directory.
 3. Install dependencies using the package manager of your choice:
 
-   ```bash
-   npm install
-  ```
+```bash
+  npm install
+```
 
 4. To run the client you have to exec the next command int he root client folder:
-  ```bash
-    npm run dev
-  ```
+```bash
+  npm run dev
+```
 
 ## Usage
 
