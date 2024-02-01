@@ -58,6 +58,7 @@ export type PostRes = {
 export type UserData = {
   username: string
   email: string
+  imageUrl: string
 }
 
 export type UserDataPutReq = {

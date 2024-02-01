@@ -50,7 +50,7 @@ export default function Profile() {
     <div className="text-white items-center bg-slate-800 justify-around h-36 p-3 w-[300px] sm:w-[600px] flex rounded-xl">
       <div className="items-center flex flex-col overflow-hidden">
           <img 
-          src={session?.profileImage || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+          src={userData?.imageUrl || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
           className="w-20 h-20 object-cover rounded-full border-4 border-slate-500 shadow-sm shadow-slate-950"
           alt="profile image"
           loading="lazy"
