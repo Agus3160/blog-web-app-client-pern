@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom"
-import useGetPostByIdQuery from "../queries/posts/useGetPostByIdQuery"
-import ErrorPage from "./ErrorPage"
-import LoadingImageHandler from "../components/LoadingImageHandler"
-import LoadingPage from "./LoadingPage"
+import useGetPostByIdQuery from "../../queries/posts/useGetPostByIdQuery"
+import ErrorPage from "../utils/ErrorPage"
+import LoadingImageHandler from "../../components/LoadingImageHandler"
+import LoadingPage from "../utils/LoadingPage"
 
 export default function PostView() {
   
@@ -20,7 +20,7 @@ export default function PostView() {
   
   return (
     <div className="w-[300px] sm:w-[600px] mx-auto text-white">
-      <LoadingImageHandler alt="post image" src={post.imageUrl} className="w-full sm:h-72 h-40 object-cover mb-5 " />
+      {post.imageUrl && <LoadingImageHandler alt="post image" src={post.imageUrl} className="w-full sm:h-72 h-40 object-cover mb-5 " />}
       <h1 className="text-center mb-3">{post.title}</h1>
       <hr className="my-3"></hr>
       <div dangerouslySetInnerHTML={{__html: post.content}} />

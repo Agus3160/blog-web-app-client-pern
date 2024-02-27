@@ -1,7 +1,8 @@
 import { useState } from "react"
-import useLoginMutation from "../queries/auth/useLoginMutation"
-import Form from "../components/customForm/Form"
-import useLocalStorage from "../hooks/useLocalStorage"
+import useLoginMutation from "../../queries/auth/useLoginMutation"
+import Form from "../../components/customForm/Form"
+import useLocalStorage from "../../hooks/useLocalStorage"
+import { Link } from "react-router-dom"
 
 export default function Login() {
 
@@ -40,8 +41,7 @@ export default function Login() {
 
 
   return (
-    <div className="h-full flex flex-col items-center justify-center">
-
+    <div className="h-full flex flex-col items-center gap-5 justify-center">
       <Form
         formData={loginData}
         setFormData={setLoginData}
@@ -65,6 +65,7 @@ export default function Login() {
           <label htmlFor="remember">Remember me</label>
         </div>
       </Form>
+      <Link to="/reset-password/request" className="text-white text-xs underline hover:opacity-80 ">Don't remember your password?</Link>
     </div>
   )
 }

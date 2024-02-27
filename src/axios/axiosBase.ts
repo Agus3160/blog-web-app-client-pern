@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASER_URL = 'https://blog-web-app-service.onrender.com'
+const BASER_URL = 'http://localhost:3000'
 
 const axiosPublicInstance = axios.create({
   baseURL: BASER_URL,

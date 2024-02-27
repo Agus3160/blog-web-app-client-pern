@@ -2,18 +2,20 @@ import { Routes, Route } from "react-router-dom"
 import ProtectedRoutes from "./components/customRoutes/ProtectedRoutes"
 import NavBar from "./components/NavBar"
 import { QueryClientProvider, QueryClient } from 'react-query'
-import SignUp from "./pages/SignUp"
-import Login from "./pages/Login"
+import SignUp from "./pages/auth/SignUp"
+import Login from "./pages/auth/Login"
 import PersistLogin from "./components/customRoutes/PersistLogin"
-import ErrorPage from "./pages/ErrorPage"
+import ErrorPage from "./pages/utils/ErrorPage"
 import Home from "./pages/Home"
-import CreatePost from "./pages/CreatePost"
-import Profile from "./pages/Profile"
-import PostView from "./pages/PostView"
-import EditPost from "./pages/EditPost"
-import EditProfile from "./pages/EditProfile"
+import CreatePost from "./pages/post/CreatePost"
+import Profile from "./pages/profile/Profile"
+import PostView from "./pages/post/PostView"
+import EditPost from "./pages/post/EditPost"
+import EditProfile from "./pages/profile/EditProfile"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ResetPasswordSendEmail from "./pages/reset-password/ResetPasswordSendEmail"
+import ResetPasswordConfirm from "./pages/reset-password/ResetPasswordConfirm"
 
 function App() {
 
@@ -37,8 +39,11 @@ function App() {
       <Routes>
       
         <Route path="/">
+          
           <Route path="signup" element={<SignUp />}></Route>
           <Route path="login" element={<Login />}></Route>
+          <Route path="reset-password/request" element={<ResetPasswordSendEmail />}></Route>
+          <Route path="reset-password/:token" element={<ResetPasswordConfirm />}></Route>
 
           <Route element={<PersistLogin />}>
             

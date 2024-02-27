@@ -1,5 +1,5 @@
 import { isAxiosError } from "axios"
-import { ApiResponseErrorScheme } from "../vite-env"
+import { ApiResponseErrorScheme } from "../../vite-env"
 
 type Props = {
   httpStatus?: number

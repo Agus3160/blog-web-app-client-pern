@@ -1,14 +1,14 @@
-import useDeleteUserMutation from "../queries/user/useDeleteUserMutation"
-import useGetUserDataQuery from "../queries/user/useGetUserDataQuery"
-import useSessionContext from "../context/useSessionContext"
-import Modal from "../components/Modal"
+import useDeleteUserMutation from "../../queries/user/useDeleteUserMutation"
+import useGetUserDataQuery from "../../queries/user/useGetUserDataQuery"
+import useSessionContext from "../../context/useSessionContext"
+import Modal from "../../components/Modal"
 import { useEffect, useState } from "react"
-import Form from "../components/customForm/Form"
-import LoadingPage from "./LoadingPage"
-import ErrorPage from "./ErrorPage"
-import UploadImage from "../components/UploadImage"
-import useUpdateUserInfoMutation from "../queries/user/useUpdateUserInfoMutation"
-import useChangePasswordMutation from "../queries/user/useChangePasswordMutation"
+import Form from "../../components/customForm/Form"
+import LoadingPage from "../utils/LoadingPage"
+import ErrorPage from "../utils/ErrorPage"
+import UploadImage from "../../components/UploadImage"
+import useUpdateUserInfoMutation from "../../queries/user/useUpdateUserInfoMutation"
+import useChangePasswordMutation from "../../queries/user/useChangePasswordMutation"
 
 export default function EditProfile() {
   const { session } = useSessionContext()
@@ -73,7 +73,7 @@ export default function EditProfile() {
         onSubmitFn={editProfile}
         sendButtonText="Update"
       >
-        <UploadImage setImage={(newImage) => setFormData({ ...formData, newImage })} message="Upload an image here..." advice="To change your profile image, upload a new one" />
+        <UploadImage preloadImage={userData.imageUrl} setImage={(newImage) => setFormData({ ...formData, newImage })} message="Upload an image here..." advice="To change your profile image, upload a new one" />
       </Form>
 
       <Form

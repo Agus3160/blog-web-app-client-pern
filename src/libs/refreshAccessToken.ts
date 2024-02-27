@@ -3,7 +3,7 @@ import { ApiResponseScheme, Session } from "../vite-env";
 
 const refreshAccessToken = async () => {
   const res = await axiosPrivateInstance.post<ApiResponseScheme<Session>>('/auth/refresh')
-  const data = res.data
+  const data = res.data.data
   return data
 }
 

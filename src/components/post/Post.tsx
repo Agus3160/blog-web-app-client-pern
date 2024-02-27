@@ -11,7 +11,7 @@ type Props = {
   title: string
   content: string
   author: string
-  imageUrl: string
+  imageUrl: string|null
   createdDate: string
   setPosts?: React.Dispatch<React.SetStateAction<PostReq[]>>
 }
@@ -37,7 +37,7 @@ export default function Post({id, title, content, author, createdDate, imageUrl,
         onActionFn={async () => await deletePost()} 
       />
 
-      <LoadingImageHandler sizeLoader={56} alt="post image" src={imageUrl} className="w-full h-40 rounded-t-xl" />
+      <LoadingImageHandler sizeLoader={56} alt="post image" src={imageUrl || '/no-image.jpg'} className="w-full h-40 rounded-t-xl" />
       <div className="">
         <div className="flex justify-between px-2 pt-2 items-center">
           <Link to={`/posts/${id}`}><h2 className="line-clamp-1">{title}</h2></Link>

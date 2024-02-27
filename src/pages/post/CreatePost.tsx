@@ -1,8 +1,8 @@
 import { useState } from "react"
-import Form from "../components/customForm/Form"
-import TipTap from "../components/TipTap/TipTap"
-import useUploadPostMutation from "../queries/posts/useUploadPostMutation"
-import UploadImage from "../components/UploadImage"
+import Form from "../../components/customForm/Form"
+import TipTap from "../../components/TipTap/TipTap"
+import useUploadPostMutation from "../../queries/posts/useUploadPostMutation"
+import UploadImage from "../../components/UploadImage"
 
 export default function CreatePost() {
   

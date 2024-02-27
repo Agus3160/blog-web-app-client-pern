@@ -1,17 +1,18 @@
-import useSignUpMutation from "../queries/auth/useSignUpMutation"
-import Form from "../components/customForm/Form"
+import useSignUpMutation from "../../queries/auth/useSignUpMutation"
+import Form from "../../components/customForm/Form"
 import { useState } from "react"
-import UploadImage from "../components/UploadImage"
+import UploadImage from "../../components/UploadImage"
+import { RegisterCredentials } from "../../vite-env"
 
 export default function SignUp() {
 
   const {mutateAsync: signUp, isLoading } = useSignUpMutation()
 
-  const [signUpData, setSignUpData] = useState({
+  const [signUpData, setSignUpData] = useState<RegisterCredentials>({
     username: '',
     email: '',
     password: '',
-    image: ''
+    image: null
   })
 
   const fields = [

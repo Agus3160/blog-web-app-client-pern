@@ -1,17 +1,17 @@
 /// <reference types="vite/client" />
 
 export type Session = {
-  username: string | null
+  username: string
   profileImage: string | null
-  userId: string | null
-  accessToken: string | null
+  userId: string 
+  accessToken: string
 }
 
 export type RegisterCredentials = {
   username: string
   email: string
   password: string
-  image: string
+  image: string|null
 }
 
 export type LoginCredentials = {
@@ -41,15 +41,15 @@ export type PostReq = {
 export type PostPutReq = {
   title: string,
   content: string
-  newImage: string
-  oldImageUrl: string
+  newImage: string|null
+  oldImageUrl: string|null
 }
 
 export type PostRes = {
   id: string,
   title: string,
   content: string,
-  imageUrl: string,
+  imageUrl: string|null,
   createdAt: string,
   updatedAt: string,
   author: string
@@ -58,17 +58,21 @@ export type PostRes = {
 export type UserData = {
   username: string
   email: string
-  imageUrl: string
+  imageUrl: string|null
 }
 
 export type UserDataPutReq = {
   username: string,
   email: string,
   currentPassword: string,
-  newImage: string
+  newImage: string|null
 }
 
 export type ChangePasswordReq = {
   currentPassword: string
   newPassword: string
+}
+
+export type NewAccessToken = {
+  newAccessToken: string
 }

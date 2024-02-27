@@ -10,7 +10,7 @@ const useUploadPostMutation = () => {
 
   return useMutation(
     {
-      mutationFn: async ({title, content, image}: {title: string, content: string, image: string}) => await uploadPost(title, content, image),
+      mutationFn: async ({title, content, image}: {title: string, content: string, image: string|null}) => await uploadPost(title, content, image),
       onSuccess: async () => {
         await queryClient.invalidateQueries('posts')
         navigate('/')
