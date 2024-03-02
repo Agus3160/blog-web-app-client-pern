@@ -28,7 +28,7 @@ export default function EditPost() {
   useEffect(() => {
     if(res?.data) {
       const {title, content, author, imageUrl} = res.data
-      if(author !== session?.username) navigate('/', {replace:true})
+      if(author !== session?.username && session?.role !== 'ADMIN') navigate('/', {replace:true})
       setPostData({newImage:'', title:title, content: content, oldImageUrl: imageUrl})
     }
   }, [res, session, navigate, id])

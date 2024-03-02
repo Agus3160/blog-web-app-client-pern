@@ -9,16 +9,22 @@ import ErrorPage from "../utils/ErrorPage"
 import UploadImage from "../../components/UploadImage"
 import useUpdateUserInfoMutation from "../../queries/user/useUpdateUserInfoMutation"
 import useChangePasswordMutation from "../../queries/user/useChangePasswordMutation"
+import SelectInput from "../../components/customForm/SelectInput"
+import { Roles } from "../../enums"
+import useLogOutMutation from "../../queries/auth/useLogOutMutation"
 
 export default function EditProfile() {
   const { session } = useSessionContext()
 
   const [showModal, setShowModal] = useState(false)
+  const [loadingUserData, setLoadingUserData] = useState(true)
+
   const [formData, setFormData] = useState({
     username: session?.username || '',
     email: '',
     currentPassword: '',
-    newImage: ''
+    newImage: '',
+    role: Roles.USER
   })
 
   const [formPassword, setFormPassword] = useState({
@@ -26,17 +32,36 @@ export default function EditProfile() {
     newPassword: ''
   })
 
-  const { data: userData, isLoading, isError, error } = useGetUserDataQuery(session?.username || '')
+  const { data: userData, isLoading: gettingUserInfo, isError, error, refetch } = useGetUserDataQuery(session?.username || '')
 
   const { mutateAsync: editProfile, isLoading: isEditingProfile } = useUpdateUserInfoMutation()
   const { mutateAsync: changePassword, isLoading: isChangingPassword } = useChangePasswordMutation()
   const { mutateAsync: deleteProfile } = useDeleteUserMutation()
+  const { mutateAsync:logOut } = useLogOutMutation()
 
   useEffect(() => {
-    formData.email = userData?.email || ''
-  }, [userData, formData])
+    const fetchData = async () => {
+      try {
+        if (!userData && session) {
+          await refetch();
+        }
+        if (userData) {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            email: userData.email || "",
+            role: userData.role || Roles.USER,
+          }));
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoadingUserData(false);
+      }
+    };
+    fetchData();
+  }, [userData, refetch]);
 
-  if (isLoading) return <LoadingPage />
+  if (gettingUserInfo || loadingUserData) return <LoadingPage />
 
   if (!userData) return null
 
@@ -61,7 +86,10 @@ export default function EditProfile() {
         showModal={showModal}
         message="Are you sure you want to delete your account?"
         title="Wait!"
-        onActionFn={async () => await deleteProfile()}
+        onActionFn={async () => {
+          await deleteProfile(session?.userId!)
+          await logOut()
+        }}
       />
 
       <Form
@@ -73,6 +101,7 @@ export default function EditProfile() {
         onSubmitFn={editProfile}
         sendButtonText="Update"
       >
+        <SelectInput values={[Roles.USER, Roles.ADMIN]} name="role" id="role" labelText="Role:" onChange={(e)=> setFormData({...formData, role: e.target.value as Roles})}/>
         <UploadImage preloadImage={userData.imageUrl} setImage={(newImage) => setFormData({ ...formData, newImage })} message="Upload an image here..." advice="To change your profile image, upload a new one" />
       </Form>
 

@@ -31,7 +31,7 @@ export default function Profile() {
     refetchOnChange()
   }, [refetch, username])
 
-  if (isLoading ) return <LoadingPage />
+  if (isLoading || isLoadingPosts) return <LoadingPage />
 
   if (isError && userDataError) return <ErrorPage error={userDataError} />
   if (isPostError && postError) return <ErrorPage error={postError} />
@@ -50,8 +50,9 @@ export default function Profile() {
     
     <div className="text-white items-center bg-slate-800 justify-around h-36 p-3 w-[300px] sm:w-[600px] flex rounded-xl">
       <div className="items-center flex flex-col overflow-hidden">
-        <ImageLoadingHandler alt="profile image" src={userData?.imageUrl || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} className="w-24 h-24 rounded-full object-cover" />
+        <ImageLoadingHandler type="avatar" sizeLoader={72} alt="profile image" src={userData?.imageUrl || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} className="w-24 h-24 rounded-full object-cover" />
         <h2 className="sm:w-64 w-32 text-center truncate">{username}</h2>
+        {userData?.role === "ADMIN" && <p className="text-sm">{userData?.role}</p>}
       </div>
       {
         isYourProfile &&

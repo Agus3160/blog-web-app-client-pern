@@ -1,3 +1,5 @@
+import { Roles } from "./enums"
+
 /// <reference types="vite/client" />
 
 export type Session = {
@@ -5,6 +7,7 @@ export type Session = {
   profileImage: string | null
   userId: string 
   accessToken: string
+  role: Roles
 }
 
 export type RegisterCredentials = {
@@ -12,6 +15,7 @@ export type RegisterCredentials = {
   email: string
   password: string
   image: string|null
+  role: Roles.ADMIN | Roles.USER
 }
 
 export type LoginCredentials = {
@@ -59,6 +63,7 @@ export type UserData = {
   username: string
   email: string
   imageUrl: string|null
+  role: Roles
 }
 
 export type UserDataPutReq = {
@@ -66,6 +71,7 @@ export type UserDataPutReq = {
   email: string,
   currentPassword: string,
   newImage: string|null
+  role: Roles
 }
 
 export type ChangePasswordReq = {
@@ -75,4 +81,11 @@ export type ChangePasswordReq = {
 
 export type NewAccessToken = {
   newAccessToken: string
+}
+
+export type Users = {
+  username: string;
+  role: $Enums.Role;
+  id: string;
+  imageUrl: string|null;
 }

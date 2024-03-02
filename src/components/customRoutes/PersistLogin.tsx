@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import useSessionContext from "../../context/useSessionContext"
 import { useEffect, useState } from "react"
 import useRefreshTokenMutation from "../../queries/auth/useRefreshTokenMutation"
@@ -10,6 +10,8 @@ export default function PersistLogin() {
   const [ refreshing, isRefreshing ] = useState(true)
 
   const {session} = useSessionContext()
+
+  const navigate = useNavigate()
   
   const { getValue } = useLocalStorage('persistLogin')
   const persist:boolean|null = getValue()
@@ -23,6 +25,7 @@ export default function PersistLogin() {
         isRefreshing(false)
       }catch(_err){
         console.error('Invalid credentials')
+        navigate('/login', {replace: true})
       }
     }
     if(persist && !session) { 
@@ -30,7 +33,7 @@ export default function PersistLogin() {
     }else{
       isRefreshing(false)
     }
-  }, [persist, session, refreshToken])
+  }, [persist, session, refreshToken, navigate])
 
   return (
     <>

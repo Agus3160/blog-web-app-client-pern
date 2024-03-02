@@ -21,7 +21,8 @@
             username: data.username,
             userId: data.userId,
             profileImage: data.profileImage,
-            accessToken: data.accessToken
+            accessToken: data.accessToken,
+            role: data.role
           }
           setSession(newSession)
         },

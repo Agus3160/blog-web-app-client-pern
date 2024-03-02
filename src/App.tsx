@@ -16,6 +16,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ResetPasswordSendEmail from "./pages/reset-password/ResetPasswordSendEmail"
 import ResetPasswordConfirm from "./pages/reset-password/ResetPasswordConfirm"
+import AdminHomeLayout from "./pages/admin/AdminLayout"
+import ProtectedRoleRoute from "./components/customRoutes/ProtectedRoleRoute"
+import { Roles } from "./enums"
+import TablePosts from "./pages/admin/TablePosts"
+import TableUsers from "./pages/admin/TableUsers"
 
 function App() {
 
@@ -40,6 +45,7 @@ function App() {
       
         <Route path="/">
           
+          {/*Public Routes*/}
           <Route path="signup" element={<SignUp />}></Route>
           <Route path="login" element={<Login />}></Route>
           <Route path="reset-password/request" element={<ResetPasswordSendEmail />}></Route>
@@ -47,8 +53,10 @@ function App() {
 
           <Route element={<PersistLogin />}>
             
+            {/*Auth Routes*/}
             <Route element={<ProtectedRoutes />}>
               
+              {/*Users Routes*/}
               <Route path="/" element={<Home />} ></Route>  
               <Route path="upload" element={<CreatePost />}></Route>
               
@@ -62,6 +70,13 @@ function App() {
                 <Route path="edit/:id" element={<EditPost />}></Route>
               </Route>
               
+              {/*Admin Routes*/}
+              <Route element={<ProtectedRoleRoute role={Roles.ADMIN} />}>
+                <Route path="/admin" element={<AdminHomeLayout views={[{path: "users", name: "Users"}, {path: "posts", name: "Posts"}]} />} >
+                  <Route path="users" element={<TableUsers />}></Route>
+                  <Route path="posts" element={<TablePosts />}></Route>
+                </Route>
+              </Route>
             </Route>
           
             <Route path="*" element={<ErrorPage httpStatus={404} message="Page not found" />}></Route>

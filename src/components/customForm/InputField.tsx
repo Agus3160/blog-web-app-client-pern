@@ -7,7 +7,6 @@ export type InputFieldProps = {
   name: string
   id: string
   required: boolean
-  checked?: boolean
   placeholder?: string
   maxLength?: number
   minLength?: number
@@ -50,7 +49,6 @@ export default function InputField({
 
   return (
     <div className="flex flex-col gap-2">
-
       <input
         autoComplete={autoComplete}
         type={type} 
@@ -66,7 +64,6 @@ export default function InputField({
           + " focus:shadow p-2 rounded-xl bg-slate-800 text-white outline-none border border-slate-600 "
         }
       />
-
       {message.length>0 && <p className="error-message">{message}</p>}
     </div>
   )

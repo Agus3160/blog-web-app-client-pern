@@ -6,8 +6,8 @@ const useDeleteUser = () => {
   const authAxios = useAuthAxiosInstance()
 
   return (
-    async () => {
-      const res = await authAxios.delete<ApiResponseScheme<null>>('/user')
+    async (id:string) => {
+      const res = await authAxios.delete<ApiResponseScheme<null>>(`/user/${id}`)
       return res.data
     }
   )

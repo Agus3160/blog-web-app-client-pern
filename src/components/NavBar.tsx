@@ -13,6 +13,7 @@ export default function NavBar() {
         <>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/upload">Upload</Link></li>
+          {session.role === "ADMIN" && <li><Link to={'/admin'}>Admin</Link></li>}
           <li><Link to={`/profile/${session.username}`}>Profile</Link></li>
         </>
         :

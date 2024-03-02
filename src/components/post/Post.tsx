@@ -21,7 +21,7 @@ export default function Post({id, title, content, author, createdDate, imageUrl,
   const [showModal, setShowModal] = useState(false)
   const { session } = useSessionContext()
   const location = useLocation()
-  const {mutateAsync: deletePost} = useDeletePostByIdMutation(id)
+  const {mutateAsync: deletePost} = useDeletePostByIdMutation()
   const createdDateFormatted = new Date(createdDate).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})
   const isTheAuthor = session?.username === author && location.pathname !== `/`
 
@@ -34,10 +34,10 @@ export default function Post({id, title, content, author, createdDate, imageUrl,
         showModal={showModal} 
         message="Are you sure you want to delete this post?" 
         title="Wait!" 
-        onActionFn={async () => await deletePost()} 
+        onActionFn={async () => await deletePost(id)} 
       />
 
-      <LoadingImageHandler sizeLoader={56} alt="post image" src={imageUrl || '/no-image.jpg'} className="w-full h-40 rounded-t-xl" />
+      <LoadingImageHandler type="image" sizeLoader={56} alt="post image" src={imageUrl || '/no-image.jpg'} className="w-full h-40 rounded-t-xl" />
       <div className="">
         <div className="flex justify-between px-2 pt-2 items-center">
           <Link to={`/posts/${id}`}><h2 className="line-clamp-1">{title}</h2></Link>

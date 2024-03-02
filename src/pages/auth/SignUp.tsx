@@ -3,6 +3,8 @@ import Form from "../../components/customForm/Form"
 import { useState } from "react"
 import UploadImage from "../../components/UploadImage"
 import { RegisterCredentials } from "../../vite-env"
+import { Roles } from "../../enums"
+import SelectInput from "../../components/customForm/SelectInput"
 
 export default function SignUp() {
 
@@ -12,8 +14,11 @@ export default function SignUp() {
     username: '',
     email: '',
     password: '',
-    image: null
+    image: null, 
+    role: Roles.USER
   })
+
+  console.log(signUpData)
 
   const fields = [
     {
@@ -60,6 +65,7 @@ export default function SignUp() {
         isLoading={isLoading}
         title="Sign Up"
       >
+        <SelectInput values={[Roles.USER, Roles.ADMIN]} name="role" id="role" labelText="Role:" onChange={(e)=> setSignUpData({...signUpData, role: e.target.value as Roles})}/>
         <UploadImage setImage={(s)=> setSignUpData({...signUpData, image: s})} message="Upload your profile image..."/>
       </Form>
     </div>

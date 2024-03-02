@@ -8,13 +8,13 @@ const useLogOutMutation = () => {
   
   const { setSession } = useSessionContext()
   const navigate = useNavigate()
-  const { removeValue } = useLocalStorage('persistLogin')
+  const { setValue } = useLocalStorage('persistLogin')
 
   return useMutation(
     {
       mutationFn: logOut,
       onSuccess: () => {
-        removeValue()
+        setValue(false)
         navigate('/login', {replace: true})
         setSession(null)
       }

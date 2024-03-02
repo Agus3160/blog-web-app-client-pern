@@ -1,17 +1,15 @@
 import { useMutation } from "react-query"
 import useDeleteUser from "../../hooks/user/useDeleteUser"
-import useLogOutMutation from "../auth/useLogOutMutation"
+import { useQueryClient } from "react-query"
 
 const useDeleteUserMutation = () => {
 
+  const queryClient = useQueryClient()
   const deleteUser = useDeleteUser()
-  const { mutateAsync:logOut } = useLogOutMutation()
 
   return useMutation({
     mutationFn:deleteUser,
-    onSuccess: async () => {
-      await logOut()
-    }
+    onSuccess: async () => await queryClient.invalidateQueries('users')
   })
 }
 

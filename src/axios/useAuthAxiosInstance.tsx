@@ -34,7 +34,7 @@ export default function useAuthAxiosInstance() {
 
         if(status === 403 && errorData?.name === "TokenExpiredError") { 
           const res = await refreshAccessToken()
-          const newAccessToken = res?.data?.newAccessToken
+          const newAccessToken = res?.accessToken
           const newConfig = {
             ...config, 
             headers: 

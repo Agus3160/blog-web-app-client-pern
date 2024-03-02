@@ -1,12 +1,12 @@
 import useAuthAxiosInstance from "../../axios/useAuthAxiosInstance"
 import { ApiResponseScheme } from "../../vite-env"
 
-const useDeletePostById = (id: string) => {
+const useDeletePostById = () => {
   
   const axiosAuth = useAuthAxiosInstance()
 
   return(
-    async () => {
+    async (id:string) => {
       const res = await axiosAuth.delete<ApiResponseScheme<null>>(`/posts/${id}`)
       return res.data
     }
